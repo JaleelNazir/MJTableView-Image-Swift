@@ -12,3 +12,5 @@
         
         imgDwldr.startDownload(urlString!)
         
+![Identity Inspector image](http://3.bp.blogspot.com/-LjNrLX3_X6o/VWWb9H_sK1I/AAAAAAAAAPk/exMFtTP4SEE/s1600/Screen%2BShot%2B2015-05-27%2Bat%2B3.01.29%2Bpm.png)
+        
