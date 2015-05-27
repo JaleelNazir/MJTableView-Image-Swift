@@ -12,5 +12,3 @@
         
         imgDwldr.startDownload(urlString!)
         
-
-
