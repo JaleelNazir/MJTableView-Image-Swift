@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MJTableImageLoading" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cRz-tn-4fq">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="imagedataCell" rowHeight="60" id="5Bw-dE-kab">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Bw-dE-kab" id="GqU-qd-F6c">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W0P-qS-Ygb" customClass="ImageDownloader" customModule="MJTableImageLoading" customModuleProvider="target">
+                                                    <rect key="frame" x="5" y="1" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="MFC-iC-gtA"/>
+                                                        <constraint firstAttribute="width" constant="60" id="ybx-Se-oOu"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGo-6q-APZ">
+                                                    <rect key="frame" x="70" y="1" width="530" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="hKE-VW-VfR"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="WGo-6q-APZ" secondAttribute="trailing" id="93H-ds-3hF"/>
+                                                <constraint firstItem="W0P-qS-Ygb" firstAttribute="top" secondItem="GqU-qd-F6c" secondAttribute="top" constant="1" id="Iji-8I-Hdn"/>
+                                                <constraint firstItem="WGo-6q-APZ" firstAttribute="leading" secondItem="W0P-qS-Ygb" secondAttribute="trailing" constant="5" id="J4K-jW-fKr"/>
+                                                <constraint firstItem="WGo-6q-APZ" firstAttribute="top" secondItem="GqU-qd-F6c" secondAttribute="top" constant="1" id="Qya-wE-zjF"/>
+                                                <constraint firstItem="W0P-qS-Ygb" firstAttribute="leading" secondItem="GqU-qd-F6c" secondAttribute="leading" constant="5" id="ohs-Af-z1O"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="rGD-gR-bkC"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="UbM-FZ-81E"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cRz-tn-4fq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ltp-qG-dSu"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cRz-tn-4fq" secondAttribute="bottom" id="Ncw-xc-cdL"/>
+                            <constraint firstAttribute="trailing" secondItem="cRz-tn-4fq" secondAttribute="trailing" id="W6a-dZ-1K9"/>
+                            <constraint firstItem="cRz-tn-4fq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="oE9-9u-Eqy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="appsTableView" destination="cRz-tn-4fq" id="wCv-bm-hpV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="269" y="409"/>
+        </scene>
+    </scenes>
+</document>
