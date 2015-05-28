@@ -13,17 +13,20 @@ import UIKit
 class ImageDownloader: UIImageView {
     
     var data = NSMutableData()
+    var fileName : String = ""
     var loadingIndicator = UIActivityIndicatorView()
     var currentConnection = NSURLConnection()
 
-    func startDownload(UrlString: String)
+    func startDownload(UrlString: String, name pngfilename : String)
     {
         self.image = nil
         
         //Image view height and width are same so we are cal only width
 //        var width  = self.bounds.size.width * 0.4
 //        self.loadingIndicator = UIActivityIndicatorView(frame: CGRectMake((self.bounds.size.width - width)/2,(self.bounds.size.width - width)/2 , 25.0, 25.0))
-//        self.loadingIndicator.color = UIColor.redColor()
+//        self.loadingIndicator.color = UIcolor.redColor()
+        
+        fileName = pngfilename
         
         self.loadingIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
         self.loadingIndicator.center = self.center
@@ -37,7 +40,29 @@ class ImageDownloader: UIImageView {
         var url: NSURL = NSURL(string: UrlString)!
         var request: NSURLRequest = NSURLRequest(URL: url)
         var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!
-        connection.start()
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        
+        var getImagePath = paths.stringByAppendingPathComponent("\(fileName).png")
+        
+        if (fileManager.fileExistsAtPath(getImagePath))
+        {
+            println("FILE AVAILABLE");
+            //Pick Image and Use accordingly
+            var imageis: UIImage = UIImage(contentsOfFile: getImagePath)!
+            
+            self.image = imageis
+            
+            let datas: NSData = UIImagePNGRepresentation(imageis)
+            connection.cancel()
+            self.loadingIndicator.stopAnimating()
+        }
+        else
+        {
+            connection.start()
+        }
     }
     
     func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse)
@@ -52,6 +77,19 @@ class ImageDownloader: UIImageView {
     {
         self.image = UIImage(data: self.data)
         self.loadingIndicator.stopAnimating()
+        let fileManager = NSFileManager.defaultManager()
+        
+        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        
+        var getImagePath = paths.stringByAppendingPathComponent("\(fileName).png")
+        
+        println("FILE NOT AVAILABLE");
+        
+        var filePathToWrite = "\(paths)/\(fileName).png"
+        
+        var imageData: NSData = UIImagePNGRepresentation(self.image)
+        
+        fileManager.createFileAtPath(filePathToWrite, contents: imageData, attributes: nil)
     }
     func connection(connection: NSURLConnection, didFailWithError error: NSError)
     {
