@@ -37,25 +37,24 @@ class ImageDownloader: UIImageView {
         self.bringSubviewToFront(self.loadingIndicator)
 //        startLoadingIndicator()
         
-        var url: NSURL = NSURL(string: UrlString)!
-        var request: NSURLRequest = NSURLRequest(URL: url)
-        var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!
+        let url: NSURL = NSURL(string: UrlString)!
+        let request: NSURLRequest = NSURLRequest(URL: url)
+        let connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!
         
         let fileManager = NSFileManager.defaultManager()
         
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
         
-        var getImagePath = paths.stringByAppendingPathComponent("\(fileName).png")
+        let getImagePath = (paths as NSString).stringByAppendingPathComponent("\(fileName).png")
         
         if (fileManager.fileExistsAtPath(getImagePath))
         {
-            println("FILE AVAILABLE");
+            print("FILE AVAILABLE");
             //Pick Image and Use accordingly
-            var imageis: UIImage = UIImage(contentsOfFile: getImagePath)!
+            let imageis: UIImage = UIImage(contentsOfFile: getImagePath)!
             
             self.image = imageis
             
-            let datas: NSData = UIImagePNGRepresentation(imageis)
             connection.cancel()
             self.loadingIndicator.stopAnimating()
         }
@@ -79,17 +78,15 @@ class ImageDownloader: UIImageView {
         self.loadingIndicator.stopAnimating()
         let fileManager = NSFileManager.defaultManager()
         
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
         
-        var getImagePath = paths.stringByAppendingPathComponent("\(fileName).png")
+        print("FILE NOT AVAILABLE");
         
-        println("FILE NOT AVAILABLE");
+        let filePathToWrite = "\(paths)/\(fileName).png"
         
-        var filePathToWrite = "\(paths)/\(fileName).png"
-        
-        var imageData: NSData = UIImagePNGRepresentation(self.image)
-        
-        fileManager.createFileAtPath(filePathToWrite, contents: imageData, attributes: nil)
+        if let imageData = UIImagePNGRepresentation(self.image!)  {
+            fileManager.createFileAtPath(filePathToWrite, contents: imageData, attributes: nil)
+        }
     }
     func connection(connection: NSURLConnection, didFailWithError error: NSError)
     {
